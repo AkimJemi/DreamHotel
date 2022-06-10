@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- CSS 추가 -->
+<style>
+.navbar-default {
+	background-color: #f5d08a;
+}
+
+.navbar-default .navbar-nav>.active>a {
+	background-color: #ea9a56;
+}
+</style>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand">夢にホテル</a>
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="main.do">メインページ</a></li>
+				<li class=""><a href="noticeList.do">お知らせ</a></li>
+				<li class=""><a href="QnAList.do">相談</a></li>
+				<li class=""><a href="roomList.do">予約</a></li>
+			</ul>
+			<!-- http://bootstrapk.com/components/ 접속 -->
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="myPage.do"><span class="glyphicon glyphicon-log-in">マイページ</span></a></li>
+				<li><a href="adminBookList.do"><span class="glyphicon glyphicon-user">管理者</span></a></li>
+			</ul>
+		</div>
+	</div>
+</nav>

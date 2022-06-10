@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>roomList.jsp</title>
+<style type="text/css">
+.main_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 800px;
+}
+
+.main_subContainer_A {
+	height: 300px;
+	width: 200px;
+}
+
+.main_subContainer_B {
+	height: 300px;
+	width: 200px;
+}
+
+.main_subContainer_C {
+	height: 300px;
+	width: 200px;
+}
+</style>
+</head>
+<body>
+	<%@ include file="../../include/header.jsp"%>
+	roomList.jsp
+	<div class="main_container">
+		<div class="main_subContainer_A">a</div>
+		<div class="main_subContainer_B">s</div>
+		<div class="main_subContainer_C">b</div>
+	</div>
+</body>
+</html>

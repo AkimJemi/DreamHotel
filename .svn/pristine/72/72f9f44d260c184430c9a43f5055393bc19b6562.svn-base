@@ -1,0 +1,9 @@
+/main.do=main.command.MainHandler
+/roomList.do=room.command.RoomListHandler
+/roomDetail.do=room.command.RoomDetailHandler
+/calenderForUser.do=room.command.CalenderForUserHandler
+/QnAList.do=board.command.QnAListHandler
+/noticeList.do=board.command.NoticeListHandler
+/adminBookList.do=admin.command.AdminBookListHandler
+/login.do=login.command.LoginHandler
+/myPage.do=user.command.MyPageHandler

@@ -1,0 +1,23 @@
+package room.command;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import mvc.command.CommandHandler;
+import room.model.Room_Info;
+import room.service.RoomService;
+
+public class CalenderForUserHandler implements CommandHandler {
+
+	@Override
+	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+		RoomService roomService = new RoomService();
+		ArrayList<Room_Info> roomList = new ArrayList<Room_Info>();
+		roomList = roomService.RoomList(roomList);
+		rq.setAttribute("rooms", roomList);
+		return "WEB-INF/view/room/calenderForUser.jsp";
+	}
+
+}
