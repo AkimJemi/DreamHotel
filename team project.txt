@@ -1,0 +1,24 @@
+\\192.168.5.11
+予約
+
+管理者
+
+掲示板 pull calender
+summer note date_setting if book or not
+A5N2
+office ppt excel
+
+servlet
+spring 2
+
+summerNote
+fullcalender
+
+
+db sampledb
+ip 192.168.5.22
+port 5432
+id testuser
+pw 1234
+cosmo-jp.iptime.org
+port 15002
