@@ -22,9 +22,7 @@ public class GuestInfoInsertHandler implements CommandHandler {
 			return processForm(rq, rp);
 		else
 			return null;
-
 	}
-
 	private String processForm(HttpServletRequest rq, HttpServletResponse rp) {
 		String no = rq.getParameter("no");
 		rq.setAttribute("option1", rq.getParameter("option1"));
@@ -35,7 +33,6 @@ public class GuestInfoInsertHandler implements CommandHandler {
 		rq.setAttribute("activity2", rq.getParameter("activity2"));
 		rq.setAttribute("activity3", rq.getParameter("activity3"));
 		rq.setAttribute("activity3", rq.getParameter("activity3"));
-
 		rq.setAttribute("no", no);
 		return "WEB-INF/view/book/guestInfoInsert.jsp";
 	}
@@ -44,23 +41,24 @@ public class GuestInfoInsertHandler implements CommandHandler {
 		BookService bookService = new BookService();
 		RoomService roomService = new RoomService();
 		Date date = new Date(System.currentTimeMillis());
-		StringBuilder options = new StringBuilder();
+		String options = rq.getParameter("option1") + "/" + rq.getParameter("option2") + "/"+rq.getParameter("option3");
 		System.out.println("option :" + rq.getParameter("option"));
-		options.append("{" + 1 + ", " + rq.getParameter("option1") + "}, ");
-		options.append("{" + 2 + ", " + rq.getParameter("option2") + "}, ");
-		options.append("{" + 3 + ", " + rq.getParameter("option3") + "}");
 //		
 //		Booking room = new Booking(Integer.parseInt(rq.getParameter("room_num")),Integer.parseInt(rq.getParameter("adult")),Integer.parseInt(rq.getParameter("child")));
-//		int option_total_cost = bookService.getOption_A_TotalCost(Integer.parseInt(rq.getParameter("option1")),Integer.parseInt(rq.getParameter("option2")),Integer.parseInt(rq.getParameter("option3")));
 //		System.out.println("option_total_cost : " +option_total_cost);
 //		int basic_total_cost = bookService.getBasic_total_cost();
-//		int total_cost = 1000;
+		int adult_cost=roomService.getAdultCostByRoom_Num(Integer.parseInt(rq.getParameter("room_nvm")));
+		int child_cost=roomService.getChildCostByRoom_Num(Integer.parseInt(rq.getParameter("room_nvm")));
+		int adult= Integer.parseInt(rq.getParameter("adult"));
+		int child= Integer.parseInt(rq.getParameter("child"));
+		int option_total_cost = bookService.getOption_A_TotalCost(Integer.parseInt(rq.getParameter("option1")),Integer.parseInt(rq.getParameter("option2")),Integer.parseInt(rq.getParameter("option3")));
+		int total_cost = option_total_cost +(child_cost*child) + (adult_cost*adult);
 //		total_cost = option_total_cost + roomService.getRoomCostByNo(rq.getParameter("no"));
-//		bookService.InsertBook(new Booking(Integer.parseInt(rq.getParameter("no")), Integer.parseInt(rq.getParameter("room_no")),
-//				rq.getParameter("name"), rq.getParameter("phone"), rq.getParameter("adult"), rq.getParameter("child"),
-//				rq.getParameter("start_date"), rq.getParameter("end_date"), options, total_cost,
-//				rq.getParameter("bank_name"), rq.getParameter("bank_branch_code"),
-//				rq.getParameter("bank_account_number"), date, date));
+		bookService.InsertBook(new Booking(Integer.parseInt(rq.getParameter("no")), Integer.parseInt(rq.getParameter("room_no")),
+				rq.getParameter("name"), rq.getParameter("phone"), rq.getParameter("adult"), rq.getParameter("child"),
+				rq.getParameter("start_date"), rq.getParameter("end_date"), options, total_cost,
+				rq.getParameter("bank_name"), rq.getParameter("bank_branch_code"),
+				rq.getParameter("bank_account_number"), date, date));
 
 //				int no, int room_no, String name, String phone, String adult, String child, String start_date,
 //				String end_date, StringBuilder options, int total_cost, String bank_name, String bank_branch_code,
@@ -94,5 +92,4 @@ public class GuestInfoInsertHandler implements CommandHandler {
 		}
 		return dating;
 	}
-
 }

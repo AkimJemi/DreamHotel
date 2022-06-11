@@ -38,6 +38,16 @@ public class RoomService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public int getAdultCostByRoom_Num(int parseInt) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getChildCostByRoom_Num(int parseInt) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 
