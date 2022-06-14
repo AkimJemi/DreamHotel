@@ -29,7 +29,10 @@
 	<%@ include file="../../include/header.jsp"%>
 	<form name="bookOption" action="guestInfoInsert.do">
 		<input type="hidden" value="${no}" name="no"> <input
-			type="hidden" value="${room_num}" name="room_num">
+			type="hidden" value="${room_num}" name="room_num"> 
+			<input type="hidden" value="${book.start_date }" name="start_date" />
+			<input type="hidden" value="${book.start_date }" name="start_date" />
+			<input type="hidden" value="${book.start_date }" name="start_date" />
 		<div class="main_container">
 			<div class="main_subContainer_A">
 				<h1>客室オプション</h1>

@@ -23,8 +23,7 @@
 <body>
 	<%@ include file="../../include/header.jsp"%>
 	<form name="bookOption" action="guestInfoInsert.do" method="post">
-	<input type="hidden" value="${no}" name="no"> 
-		<input type="hidden" value="${room_num}" name="room_num"> <input
+		<input type="hidden" value="${no}" name="no"> <input
 			type="hidden" value="${room_num}" name="room_num"> <input
 			type="hidden" value="${option1}" name="option1"> <input
 			type="hidden" value="${option2}" name="option2"> <input

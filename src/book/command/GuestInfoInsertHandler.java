@@ -47,8 +47,8 @@ public class GuestInfoInsertHandler implements CommandHandler {
 //		Booking room = new Booking(Integer.parseInt(rq.getParameter("room_num")),Integer.parseInt(rq.getParameter("adult")),Integer.parseInt(rq.getParameter("child")));
 //		System.out.println("option_total_cost : " +option_total_cost);
 //		int basic_total_cost = bookService.getBasic_total_cost();
-		int adult_cost=roomService.getAdultCostByRoom_Num(Integer.parseInt(rq.getParameter("room_nvm")));
-		int child_cost=roomService.getChildCostByRoom_Num(Integer.parseInt(rq.getParameter("room_nvm")));
+		int adult_cost=roomService.getAdultCostByRoom_Num(Integer.parseInt(rq.getParameter("room_num")));
+		int child_cost=roomService.getChildCostByRoom_Num(Integer.parseInt(rq.getParameter("room_num")));
 		int adult= Integer.parseInt(rq.getParameter("adult"));
 		int child= Integer.parseInt(rq.getParameter("child"));
 		int option_total_cost = bookService.getOption_A_TotalCost(Integer.parseInt(rq.getParameter("option1")),Integer.parseInt(rq.getParameter("option2")),Integer.parseInt(rq.getParameter("option3")));

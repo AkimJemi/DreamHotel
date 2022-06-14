@@ -28,6 +28,7 @@ public class DBCPInitListener implements ServletContextListener {
       } catch (IOException e) {
          throw new RuntimeException("config load fail",e);
       }
+      
       loadJDBCDriver(prop);
       initConnection(prop);
    }

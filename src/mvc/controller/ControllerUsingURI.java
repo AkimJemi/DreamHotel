@@ -17,66 +17,70 @@ import mvc.command.CommandHandler;
 import mvc.command.NullHandler;
 
 public class ControllerUsingURI extends HttpServlet {
-   private Map<String, CommandHandler> commandHandlerMap = new HashMap<>();
+	private Map<String, CommandHandler> commandHandlerMap = new HashMap<>();
 
-   @Override
-   public void init() throws ServletException {
-      String configFile = getInitParameter("configFile");
-      Properties prop = new Properties();
-      String configFilePath = getServletContext().getRealPath(configFile);
-      try (FileInputStream fis = new FileInputStream(configFilePath)) {
-         prop.load(fis);
-      } catch (IOException e) {
-         throw new ServletException(e);
-      }
-      
-      Iterator keyIter = prop.keySet().iterator();
-      while (keyIter.hasNext()) {
-         String command = (String) keyIter.next();
-         String handlerClassName = prop.getProperty(command);
-         try {
-            Class<?> handlerClass = Class.forName(handlerClassName);
-            CommandHandler handlerinstance = (CommandHandler) handlerClass.newInstance();
-            commandHandlerMap.put(command, handlerinstance);
-         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new ServletException(e);
-         }
+	@Override
+	public void init() throws ServletException {
+		String configFile = getInitParameter("configFile");
+		Properties prop = new Properties();
+		String configFilePath = getServletContext().getRealPath(configFile);
+		try (FileInputStream fis = new FileInputStream(configFilePath)) {
+			prop.load(fis);
+		} catch (IOException e) {
+			throw new ServletException(e);
+		}
 
-      }
-   }
+		Iterator keyIter = prop.keySet().iterator();
+		while (keyIter.hasNext()) {
+			String command = (String) keyIter.next();
+			String handlerClassName = prop.getProperty(command);
+			try {
+				Class<?> handlerClass = Class.forName(handlerClassName);
+				CommandHandler handlerinstance = (CommandHandler) handlerClass.newInstance();
+				commandHandlerMap.put(command, handlerinstance);
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+				throw new ServletException(e);
+			}
 
-   @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      process(req, resp);
+		}
+	}
 
-   }
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		process(req, resp);
 
-   private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String command = req.getRequestURI();
-      if (command.indexOf(req.getContextPath()) == 0) {
-         command = command.substring(req.getContextPath().length());
-      }
-      CommandHandler handler = commandHandlerMap.get(command);
+	}
 
-      if (handler == null) { // handler == null //
-         handler = new NullHandler(); // - 3 -
-      }
-      String viewPage = null;
-      try {
-         viewPage = handler.process(req, resp);
+	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String command = req.getRequestURI();
+		if (command.indexOf(req.getContextPath()) == 0) {
+			command = command.substring(req.getContextPath().length());
+		}
+		CommandHandler handler = commandHandlerMap.get(command);
 
-      } catch (Exception e) {
-         throw new ServletException(e);
-      }
-      if (viewPage != null) {
-         RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
-         dispatcher.forward(req, resp);
-      }
-   }
+		if (handler == null)
+			handler = new NullHandler();
 
-   @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      process(req, resp);
-   }
+		String viewPage = null;
+		try {
+			viewPage = handler.process(req, resp);
+
+		} catch (Exception e) {
+			throw new ServletException(e);
+		}
+		if (viewPage.contains("{")) {
+			System.out.println("success");
+//			RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
+//			dispatcher.(req, resp);
+		} else if (viewPage != null) {
+			RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
+			dispatcher.forward(req, resp);
+		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		process(req, resp);
+	}
 
 }

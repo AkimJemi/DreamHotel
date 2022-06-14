@@ -24,8 +24,11 @@
 			<div>タイトル ： ${room.room_title }</div>
 			<div>${room.explanation }</div>
 		</div>
+		[${room.room_num}]
 		<div class="main_subContainer_B_1">
-			<input type="button" onClick="location.href='calenderForUser.do?no=${room.no}'" value="予約する"> <input type="button"
+			<input type="button"
+					onClick="location.href='calenderForUser.do?no=${room.no}&room_num=${room.room_num}'"
+					value="予約する"> <input type="button"
 				value="戻る" onclick="history.back()">
 		</div>
 		<div class="main_subContainer_B_2">

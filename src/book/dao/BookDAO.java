@@ -7,22 +7,28 @@ import java.util.ArrayList;
 
 import book.model.Booking;
 import book.model.Options;
+import jdbc.JdbcUtil;
 import room.model.Room_Info;
 
 public class BookDAO {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
-	public ArrayList<Booking> bookList(Connection conn, ArrayList<Booking> bookList) {
+	public ArrayList<Booking> bookList(Connection conn, ArrayList<Booking> bookLists) {
+		ArrayList<Booking> bookList = new ArrayList<Booking>();
 		try {
-			pstmt = conn.prepareStatement("select * from booking");
+			pstmt = conn.prepareStatement("select no, room_no,name,start_date,end_date from booking where cancel_flag = '0' and room_no =?");
+			pstmt.setInt(1, bookLists.get(0).getNo());
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-//				bookList.add(new Booking(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16), rs.getDate(17), rs.getDate(18)));
+				bookList.add(new Booking(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getString(5)));
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : RoomDAO.roomList()");
+		}
+		finally {
+			JdbcUtil.close(pstmt, rs);
 		}
 		return bookList;
 	}
@@ -42,6 +48,8 @@ public class BookDAO {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : RoomDAO.insertOptions()");
+		}finally {
+			JdbcUtil.close(pstmt, rs);
 		}
 	}
 
@@ -58,6 +66,8 @@ public class BookDAO {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : RoomDAO.getOptionATotal()");
+		}finally {
+			JdbcUtil.close(pstmt, rs);
 		}
 		return total;
 	}
@@ -65,9 +75,12 @@ public class BookDAO {
 	public int getBasicTotalCost(Connection conn, int adult, int child) {
 		int total = 0;
 		try {
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : RoomDAO.getBasicTotalCost()");
+		}finally {
+			JdbcUtil.close(pstmt, rs);
 		}
 		return total;
 	}

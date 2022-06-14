@@ -27,7 +27,25 @@ public class Booking {
 	public Booking() {
 	}
 
-	
+	public Booking(int no, int room_no, String name, String start_date, String end_date) {
+		this.no = no;
+		this.room_no = room_no;
+		this.name = name;
+		this.start_date = start_date;
+		this.end_date = end_date;
+	}
+
+
+	public Booking(int no, int room_no) {
+		this.no = no;
+		this.room_no = room_no;
+	}
+
+	public Booking(int no, int room_no, String name) {
+		this.no = no;
+		this.room_no = room_no;
+		this.name = name;
+	}
 
 	public Booking(int no, int room_no, String adult, String child, String start_date, String end_date) {
 		this.no = no;
@@ -38,11 +56,10 @@ public class Booking {
 		this.end_date = end_date;
 	}
 
-
-
 	public Booking(int no, int room_no, String name, String phone, String adult, String child, String start_date,
-			String end_date, StringBuilder options, String payment_flag, int total_cost, String cancel_flag, String bank_name,
-			String bank_branch_code, String bank_account_number, String delete_flag, Date created_at, Date updated_at) {
+			String end_date, StringBuilder options, String payment_flag, int total_cost, String cancel_flag,
+			String bank_name, String bank_branch_code, String bank_account_number, String delete_flag, Date created_at,
+			Date updated_at) {
 		this.no = no;
 		this.room_no = room_no;
 		this.name = name;
@@ -62,6 +79,7 @@ public class Booking {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
+
 	public Booking(int no, int room_no, String name, String phone, String adult, String child, String start_date,
 			String end_date, String option, int total_cost, String bank_name, String bank_branch_code,
 			String bank_account_number, Date created_at, Date updated_at) {
@@ -101,6 +119,8 @@ public class Booking {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
+
+
 	public String getOption() {
 		return option;
 	}
@@ -108,6 +128,7 @@ public class Booking {
 	public void setOption(String option) {
 		this.option = option;
 	}
+
 	public int getNo() {
 		return no;
 	}

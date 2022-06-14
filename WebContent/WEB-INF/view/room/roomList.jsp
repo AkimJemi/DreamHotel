@@ -10,7 +10,6 @@
 </head>
 <body>
 	<%@ include file="../../include/header.jsp"%>
-	<%@ include file="../../include/footer.jsp"%>
 	<div class="main_container">
 		<div class="main_subContainer_A">a</div>
 		<c:forEach var="rooms" items="${rooms}">
