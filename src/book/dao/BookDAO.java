@@ -17,17 +17,18 @@ public class BookDAO {
 	public ArrayList<Booking> bookList(Connection conn, ArrayList<Booking> bookLists) {
 		ArrayList<Booking> bookList = new ArrayList<Booking>();
 		try {
-			pstmt = conn.prepareStatement("select no, room_no,name,start_date,end_date from booking where cancel_flag = '0' and room_no =?");
+			pstmt = conn.prepareStatement(
+					"select no, room_no,name,start_date,end_date from booking where cancel_flag = '0' and room_no =?");
 			pstmt.setInt(1, bookLists.get(0).getNo());
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				bookList.add(new Booking(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getString(5)));
+				bookList.add(
+						new Booking(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5)));
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : RoomDAO.roomList()");
-		}
-		finally {
+		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
 		return bookList;
@@ -48,7 +49,7 @@ public class BookDAO {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : RoomDAO.insertOptions()");
-		}finally {
+		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
 	}
@@ -66,7 +67,7 @@ public class BookDAO {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : RoomDAO.getOptionATotal()");
-		}finally {
+		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
 		return total;
@@ -75,14 +76,46 @@ public class BookDAO {
 	public int getBasicTotalCost(Connection conn, int adult, int child) {
 		int total = 0;
 		try {
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : RoomDAO.getBasicTotalCost()");
-		}finally {
+		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
 		return total;
+	}
+
+	public int insertBook(Connection conn, Booking booking) {
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(
+					"insert into booking ( room_no, phone,adult,child, start_date, end_date, options, total_cost, bank_name, bank_branch_code, bank_account_number,created_at, updated_at, name) values (?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
+			pstmt.setInt(1, booking.getNo());
+			pstmt.setString(2, booking.getPhone());
+			pstmt.setString(3, booking.getAdult());
+			pstmt.setString(4, booking.getChild());
+			pstmt.setString(5, booking.getStart_date());
+			pstmt.setString(6, booking.getEnd_date());
+			pstmt.setString(7, booking.getOption());
+			pstmt.setInt(8, booking.getTotal_cost());
+			pstmt.setString(9, booking.getBank_name());
+			pstmt.setString(10, booking.getBank_branch_code());
+			pstmt.setString(11, booking.getBank_account_number());
+			pstmt.setDate(12, booking.getCreated_at());
+			pstmt.setDate(13, booking.getUpdated_at());
+			pstmt.setString(14, booking.getName());
+			result = pstmt.executeUpdate();
+			if (result == 1) {
+				return result;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("error : RoomDAO.insertBook()");
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return result;
 	}
 
 }

@@ -11,15 +11,15 @@
 <body>
 	<%@ include file="../../include/header.jsp"%>
 	<div class="main_container">
-		<div class="main_subContainer_A">a</div>
+		<div class="main_subContainer_A"></div>
 		<c:forEach var="rooms" items="${rooms}">
 			<div class="main_subContainer_C_left">
 				<div>
 					<div>
-						<a href="roomDetail.do?no=${rooms.no}&room_num=${rooms.room_num}">${rooms.no }</a>
+						<a href="roomDetail.do?no=${rooms.no}&room_num=${rooms.room_num}&room_title=${rooms.room_title}">${rooms.no }</a>
 					</div>
 					<div>${rooms.room_num }</div>
-					<div>${rooms.room_title }</div>
+					<div>${rooms.room_title }[]</div>
 					<div>${rooms.max }</div>
 					<div>${rooms.adult_cost }</div>
 					<div>${rooms.child_cost }</div>
@@ -33,7 +33,7 @@
 			</div>
 			<div class="main_subContainer_C_right">
 				<input type="button"
-					onClick="location.href='calenderForUser.do?no=${rooms.no}&room_num=${rooms.room_num}'"
+					onClick="location.href='calenderForUser.do?no=${rooms.no}&room_num=${rooms.room_num}&room_title=${rooms.room_title}'"
 					value="予約する">
 			</div>
 		</c:forEach>

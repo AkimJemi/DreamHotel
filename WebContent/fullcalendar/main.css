@@ -688,8 +688,6 @@ A HORIZONTAL event
     background: rgba(208, 208, 208, 0.3);
     background: var(--fc-neutral-bg-color, rgba(208, 208, 208, 0.3));
   }
-
-
 :root {
   --fc-daygrid-event-dot-width: 8px;
 }

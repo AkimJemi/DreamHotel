@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jdbc.Util;
 import mvc.command.CommandHandler;
 import mvc.command.NullHandler;
 
@@ -29,7 +30,6 @@ public class ControllerUsingURI extends HttpServlet {
 		} catch (IOException e) {
 			throw new ServletException(e);
 		}
-
 		Iterator keyIter = prop.keySet().iterator();
 		while (keyIter.hasNext()) {
 			String command = (String) keyIter.next();
@@ -57,22 +57,15 @@ public class ControllerUsingURI extends HttpServlet {
 			command = command.substring(req.getContextPath().length());
 		}
 		CommandHandler handler = commandHandlerMap.get(command);
-
 		if (handler == null)
 			handler = new NullHandler();
-
 		String viewPage = null;
 		try {
 			viewPage = handler.process(req, resp);
-
 		} catch (Exception e) {
-			throw new ServletException(e);
+			Util.redirectMsgAndBack(req, "ServletException");
 		}
-		if (viewPage.contains("{")) {
-			System.out.println("success");
-//			RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
-//			dispatcher.(req, resp);
-		} else if (viewPage != null) {
+		if (viewPage != null) {
 			RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
 			dispatcher.forward(req, resp);
 		}

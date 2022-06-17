@@ -27,12 +27,12 @@
 </head>
 <body>
 	<%@ include file="../../include/header.jsp"%>
-	<form name="bookOption" action="guestInfoInsert.do">
+	<form name="bookOption" action="guestInfoInsert.do" method="get">
 		<input type="hidden" value="${no}" name="no"> <input
 			type="hidden" value="${room_num}" name="room_num"> 
-			<input type="hidden" value="${book.start_date }" name="start_date" />
-			<input type="hidden" value="${book.start_date }" name="start_date" />
-			<input type="hidden" value="${book.start_date }" name="start_date" />
+			<input type="hidden" value="${start_date }" name="start_date" />
+			<input type="hidden" value="${end_date }" name="end_date" />
+			<input type="hidden" value="${room_title }" name="room_title" />
 		<div class="main_container">
 			<div class="main_subContainer_A">
 				<h1>客室オプション</h1>
