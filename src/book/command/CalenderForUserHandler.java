@@ -29,13 +29,9 @@ public class CalenderForUserHandler implements CommandHandler {
 			ArrayList<Integer> calDates = new ArrayList<Integer>();
 			start_date = rq.getParameter("start_date");
 			end_date = rq.getParameter("end_date");
-			System.out.println("start : " + start_date);
-			System.out.println("end : "+end_date);
-			int start_date_day = Integer.parseInt(start_date.substring(8, 10));
-			int end_date_day = Integer.parseInt(end_date.substring(8, 10));
-			int start_dates = start_date_day;
-			int end_dates = end_date_day;
-			for (int j = 1; j <= end_dates - start_dates; j++) {
+			int start_dates = Integer.parseInt(start_date.substring(8, 10));
+			int end_dates = Integer.parseInt(end_date.substring(8, 10));
+			for (int j = 1; j <= end_dates - start_dates + 1; j++) {
 				calDates.add(start_dates);
 				start_dates++;
 				j--;
@@ -43,8 +39,6 @@ public class CalenderForUserHandler implements CommandHandler {
 			for (int i = 0; i < bookList.size(); i++) {
 				start_dates = Integer.parseInt(bookList.get(i).getStart_date().substring(6, 8));
 				end_dates = Integer.parseInt(bookList.get(i).getEnd_date().substring(6, 8));
-				System.out.println("test2 s: " + start_dates);
-				System.out.println("test2 e: " + end_dates);
 				for (int j = 1; j <= end_dates - start_dates; j++) {
 					listDates.add(start_dates);
 					j--;
@@ -52,17 +46,17 @@ public class CalenderForUserHandler implements CommandHandler {
 				}
 			}
 			rq.setAttribute("msg", "¸”s");
-			for (int z = 0; z < calDates.size(); z++) {
+			for (int z = 0; z < calDates.size(); z++)
 				if (listDates.contains(calDates.get(z)))
 					return "WEB-INF/view/room/calenderSuccess.jsp";
-			}
+
 			rq.setAttribute("msg", "¬Œ÷");
 			return "WEB-INF/view/room/calenderSuccess.jsp";
 		}
 
-		if (rq.getMethod().equalsIgnoreCase("POST")) {
+		if (rq.getMethod().equalsIgnoreCase("POST"))
 			return post(rq, rp);
-		} else if (rq.getMethod().equalsIgnoreCase("GET"))
+		else if (rq.getMethod().equalsIgnoreCase("GET"))
 			return get(rq, rp);
 		else
 			return Util.redirectMsgAndBack(rq, "getMethod Error");

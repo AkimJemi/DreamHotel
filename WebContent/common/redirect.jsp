@@ -10,6 +10,7 @@ if(historyBack){
 history.back();
 }
 const replaceURI = '${replaceURI}'.trim();
+alert(replaceURI);
 if(replaceURI){
 location.replace(replaceURI);
 }

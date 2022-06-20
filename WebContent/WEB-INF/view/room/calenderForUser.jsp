@@ -60,12 +60,12 @@ var result = null;
 											if(click_info_str ==info.dateStr){
 												return;
 											}
-											click_info_end = info.dateStr;
-											str_sub = click_info_str.substring(8,10);
-											end_sub = parseInt(click_info_end.substring(8,10))+1;
+											end_sub = parseInt(info.dateStr.substring(8,10));
 											if((end_sub+"").length == 1){
 												end_sub = "0"+end_sub;
 											}
+											click_info_end = info.dateStr.substring(0,8)+end_sub;
+											str_sub = click_info_str.substring(8,10);
 											if(str_sub>end_sub){
 												intr =end_sub;
 												end_sub=str_sub;
@@ -74,12 +74,15 @@ var result = null;
 												click_info_end = click_info_str;
 												click_info_str = intr;
 											}
+											alert(click_info_end);
 											checkDateAvailable(click_info_str, click_info_end);
 											if(result == "no"){
-												str_sub =str_sub_pre;
-												end_sub = end_sub_pre;
-												click_info_end = click_info_end_pre;
-												click_info_str = click_info_str_pre
+												$('td').find("[data-date='"+click_info+ str_sub+"']").css("background-color","white");
+												$('td').find("[data-date='"+click_info+ end_sub+"']").css("background-color","white");
+												str_sub = null;
+												end_sub = null;
+												click_info_end = null;
+												click_info_str = null
 												alert("no");
 												return;
 											}else{
@@ -96,7 +99,6 @@ var result = null;
 												$('td').find("[data-date='"+click_info+ str_sub+"']").css("background-color","blue");
 												str_sub++;
 												str_sub = str_sub + "";
-												
 													if(str_sub.length==1){
 													str_sub = "0" +str_sub;
 													};
@@ -110,12 +112,10 @@ var result = null;
 												end_sub_pre=str_sub_pre;
 												str_sub_pre=intr;
 											}
-												
 											for(var i = 0; i<=size_pre;i++){
 												$('td').find("[data-date='"+click_info_pre+str_sub_pre+"']").css("background-color","white");
 													str_sub_pre++;
-													str_sub_pre = str_sub_pre + "";
-													if(str_sub_pre.length==1){
+													if((str_sub_pre+"").length==1){
 														str_sub_pre = "0" +str_sub_pre;
 													};
 												};
@@ -125,12 +125,11 @@ var result = null;
 											click_info_end= null;
 											click_info_end_pre = click_info_end;
 										  }
-										
 									},
 									events : [
 										<%int i = 0;
-for (i = 0; i < bookList.size(); i++) {
-	if (i != bookList.size() - 1) {%>
+	for (i = 0; i < bookList.size(); i++) {
+		if (i != bookList.size() - 1) {%>
 									 {
 											title : 'Event2',
 											start : '<%=bookList.get(i).getStart_date()%>',
@@ -153,13 +152,14 @@ for (i = 0; i < bookList.size(); i++) {
 									,select: function(info){
 										select_info_str = info.startStr;
 										if(((parseInt(info.endStr.substring(8,10))-1)+ "").length == 1 ){
-										select_info_end = (info.endStr).substring(0,8) + "0"+ parseInt(info.endStr.substring(8,10));
+										select_info_end = (info.endStr).substring(0,8) + "0"+ ((parseInt(info.endStr.substring(8,10))-1)+ "");
 										}else {
-										select_info_end = (info.endStr).substring(0,8) + parseInt(info.endStr.substring(8,10));
+										select_info_end = (info.endStr).substring(0,8) + parseInt(info.endStr.substring(8,10)-1);
 										}
 										if(parseInt(select_info_str.substring(8,10)) == (parseInt(info.endStr.substring(8,10))-1)){
 											return;
 										};
+										alert(select_info_end);
 										checkDateAvailable(select_info_str, select_info_end);
 										alert(result);
 									}
@@ -170,7 +170,7 @@ for (i = 0; i < bookList.size(); i++) {
 		$.ajax({
 			type:'POST',
 			url:'calenderForUser.do?check=1',
-			data:{"start_date": str, "end_date": end,"room_no": ${no} },
+			data:{"start_date": str, "end_date": end,"room_no": ${no} },	
 			dataType:'text',
 			async:false
 		})

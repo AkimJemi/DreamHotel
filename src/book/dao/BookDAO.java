@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import book.model.Booking;
 import book.model.Options;
 import jdbc.JdbcUtil;
-import room.model.Room_Info;
 
 public class BookDAO {
 	private PreparedStatement pstmt;
@@ -18,7 +17,7 @@ public class BookDAO {
 		ArrayList<Booking> bookList = new ArrayList<Booking>();
 		try {
 			pstmt = conn.prepareStatement(
-					"select no, room_no,name,start_date,end_date from booking where cancel_flag = '0' and room_no =?");
+					"select no, room_no,name,start_date,end_date from booking where cancel_flag = '0' and room_no =? order by no");
 			pstmt.setInt(1, bookLists.get(0).getNo());
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -27,11 +26,63 @@ public class BookDAO {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			System.out.println("error : RoomDAO.roomList()");
+			System.out.println("error : BookDAO.BookList()");
 		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
 		return bookList;
+	}
+
+	public ArrayList<Booking> myBookList(Connection conn, String name, String phone) {
+		ArrayList<Booking> bookingss = new ArrayList<Booking>();
+		try {
+			pstmt = conn.prepareStatement(
+					"select no, room_no,name,phone, adult, child, start_date,end_date,options,payment_flag, total_cost,bank_name,bank_branch_code,bank_account_number,created_at, updated_at, cancel_flag from booking where name = ? and phone =? order by no");
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String[] options = rs.getString(9).split("/");
+				String option1 = options[0];
+				String option2 = options[1];
+				String option3 = options[2];
+				bookingss.add(new Booking(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), option1, option2, option3, rs.getString(10),
+						rs.getInt(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getDate(15),
+						rs.getDate(16), rs.getString(17)));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("error : BookDAO.myBookList()");
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return bookingss;
+	}
+
+	public ArrayList<Booking> adminBookList(Connection conn, ArrayList<Booking> bookings) {
+		ArrayList<Booking> bookingss = new ArrayList<Booking>();
+		try {
+			pstmt = conn.prepareStatement(
+					"select no, room_no,name,phone, adult, child, start_date,end_date,options,payment_flag, total_cost,bank_name,bank_branch_code,bank_account_number,created_at, updated_at, cancel_flag from booking order by no");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String[] options = rs.getString(9).split("/");
+				String option1 = options[0];
+				String option2 = options[1];
+				String option3 = options[2];
+				bookingss.add(new Booking(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8), option1, option2, option3, rs.getString(10),
+						rs.getInt(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getDate(15),
+						rs.getDate(16), rs.getString(17)));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("error : BookDAO.adminBookList()");
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return bookingss;
 	}
 
 	public void insertOptions(Connection conn, ArrayList<Options> options) {
@@ -48,7 +99,7 @@ public class BookDAO {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			System.out.println("error : RoomDAO.insertOptions()");
+			System.out.println("error : BookDAO.insertOptions()");
 		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
@@ -66,7 +117,7 @@ public class BookDAO {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			System.out.println("error : RoomDAO.getOptionATotal()");
+			System.out.println("error : BookDAO.getOptionATotal()");
 		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
@@ -79,7 +130,7 @@ public class BookDAO {
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			System.out.println("error : RoomDAO.getBasicTotalCost()");
+			System.out.println("error : BookDAO.getBasicTotalCost()");
 		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
@@ -111,7 +162,51 @@ public class BookDAO {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			System.out.println("error : RoomDAO.insertBook()");
+			System.out.println("error : BookDAO.insertBook()");
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return result;
+	}
+
+	public int paymentUpdate(Connection conn, String payment, int no) {
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement("update booking set payment_flag = ?  where no = ?");
+			if (payment.equalsIgnoreCase("yes"))
+				pstmt.setString(1, 1+"");
+			else if (payment.equalsIgnoreCase("no"))
+				pstmt.setString(1, 0+"");
+			
+			pstmt.setInt(2, no);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("error : BookDAO.paymentUpdate()");
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return result;
+	}
+
+	public int bookCancel(Connection conn, String cancel, int no) {
+		int result = 0;
+		try {
+			System.out.println(cancel);
+			System.out.println(no);
+			pstmt = conn.prepareStatement("update booking set cancel_flag = ?  where no = ?");
+			if (cancel.equalsIgnoreCase("yes"))
+				pstmt.setString(1, 1+"");
+			else if (cancel.equalsIgnoreCase("no"))
+				pstmt.setString(1, 0+"");
+			else if (cancel.equalsIgnoreCase("do"))
+				pstmt.setString(1, 2+"");
+			
+			pstmt.setInt(2, no);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("error : BookDAO.bookCancel()");
 		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}

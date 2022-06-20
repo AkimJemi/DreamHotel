@@ -79,8 +79,6 @@ public class GuestInfoInsertHandler implements CommandHandler {
 			rq.setAttribute("phone", rq.getParameter("phone"));
 			rq.setAttribute("adult", rq.getParameter("adult"));
 			rq.setAttribute("child", rq.getParameter("child"));
-			System.out.println("test : " + Integer.parseInt(end_date.substring(8,10)));
-			System.out.println("test : " + Integer.parseInt(start_date.substring(8,10)));
 			rq.setAttribute("bak", Integer.parseInt(end_date.substring(8,10))-Integer.parseInt(start_date.substring(8,10)));
 			rq.setAttribute("bank_name", rq.getParameter("bank_name"));
 			rq.setAttribute("bank_branch_code", rq.getParameter("bank_branch_code"));

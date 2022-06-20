@@ -28,8 +28,8 @@
 			<!-- http://bootstrapk.com/components/ 접속 -->
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="login.do"><span class="glyphicon glyphicon-log-in">予約確認</span></a></li>
-				<li><a href="adminBookList.do"><span class="glyphicon glyphicon-user">管理者</span></a></li>
-				<li><a href="adminBookList.do"><span class="glyphicon glyphicon-user">User</span></a></li>
+				<li><a href="adminPage.do"><span class="glyphicon glyphicon-user">管理者</span></a></li>
+				<li><a href="login.do"><span class="glyphicon glyphicon-user">User</span></a></li>
 			</ul>
 		</div>
 	</div>
