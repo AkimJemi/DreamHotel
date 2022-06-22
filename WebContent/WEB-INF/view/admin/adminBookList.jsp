@@ -22,30 +22,68 @@ button {
 	width: 100px;
 	height: 30px;
 }
+
+.paging_css {
+	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.paging_css_inner {
+	display: flex;
+	text-align: center;
+	gap: 20px;
+	width: 215px;
+}
 </style>
 <script type="text/javascript">
 	function paymentUpdate(ths,no) {
 		if (ths == 'no') {
 			if (confirm('お支払いキャンセルしますか？'))
-				location.href = 'paymentUpdate.do?payment=' + ths +'&no=' +no;
+				location.href = 'adminBookList.do?payment=' + ths +'&no=' +no;
 		} else if (ths == 'yes')
 			if (confirm('お支払い完了しますか？'))
-				location.href = 'paymentUpdate.do?payment=' + ths +'&no=' +no;
+				location.href = 'adminBookList.do?payment=' + ths +'&no=' +no;
 	}
 	function bookCancel(ths,no) {
 		if (ths == 'yes') {
 			if (confirm('予約をキャンセルしますか？'))
-				location.href = 'bookCancel.do?cancel=' + ths +'&no=' +no;
+				location.href = 'adminBookList.do?cancel=' + ths +'&no=' +no;
 				
 		}else if (ths == 'no') 
 			if (confirm('予約を復元しますか？'))
-				location.href = 'bookCancel.do?cancel=' + ths +'&no=' +no;
+				location.href = 'adminBookList.do?cancel=' + ths +'&no=' +no;
+	}
+	function searchFunction(){
+		alert("dd");
 	}
 </script>
 </head>
 <body>
 	<%@ include file="../../include/header.jsp"%>
+	
+	<c:set var="page" value="searchContent=${paging.searchContent }&searchTitle=${paging.searchTitle }"/>
+	
 	<h1>${loginedName }様お歓迎致します。</h1>
+	<form action="adminBookList.do">
+		<div class="paging_css">
+			<div class="paging_css_inner">
+				<input type="hidden" name="currentPage" value="${paging.currentPage }"> <select
+					name="searchTitle">
+					<option value="0">-</option>
+					<option value="1">予約番号</option>
+					<option value="2">部屋番号</option>
+					<option value="3">姓名</option>
+				</select>
+				<script type="text/javascript">
+				$('select[name="searchTitle"]').val('${paging.searchTitle}');
+				</script>
+				<input type="text" name="searchContent" value="${paging.searchContent }"
+					placeholder="入力してください" /> <input type="submit" value="検索">
+			</div>
+		</div>
+	</form>
 	<table>
 		<thead>
 			<tr>
@@ -132,5 +170,24 @@ button {
 			</c:forEach>
 		</tbody>
 	</table>
+	<div class="paging_css">
+		<div class="paging_css_inner">
+			<div>
+				<c:if test="${paging.backward}">
+					<a href="adminBookList.do?currentPage=${paging.begin-1 }&${page }">前へ</a>
+				</c:if>
+			</div>
+			<c:forEach var="pagingCount" begin="${paging.begin }" end="${paging.end }">
+				<div>
+					<a href="adminBookList.do?currentPage=${pagingCount}&${page }">${pagingCount}</a>
+				</div>
+			</c:forEach>
+			<div>
+				<c:if test="${paging.forward}">
+					<a href="adminBookList.do?currentPage=${paging.end+1 }&${page }">次へ</a>
+				</c:if>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

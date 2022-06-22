@@ -13,6 +13,8 @@ public class LoginHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+		if (rq.getParameter("name") != null && rq.getParameter("phone") != null)
+			return processSubmit(rq, rp);
 
 		if (rq.getMethod().equalsIgnoreCase("get")) {
 			return porocessForm(rq, rp);
@@ -28,6 +30,7 @@ public class LoginHandler implements CommandHandler {
 		String phone = rq.getParameter("phone");
 		if (loginService.login(name, phone) == 1) {
 			HttpSession session = rq.getSession();
+			session.setAttribute("loginedUser", Boolean.TRUE);
 			session.setAttribute("loginedName", name);
 			session.setAttribute("loginedPhone", phone);
 			return Util.redirectMsgAndReplace(rq, "ÉçÉOÉCÉìê¨å˜", "/myPage.do");

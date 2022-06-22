@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import book.model.Booking;
 import book.model.Options;
 import jdbc.JdbcUtil;
+import util.paging.Paging;
 
 public class BookDAO {
 	private PreparedStatement pstmt;
@@ -60,12 +61,31 @@ public class BookDAO {
 		return bookingss;
 	}
 
-	public ArrayList<Booking> adminBookList(Connection conn, ArrayList<Booking> bookings) {
+	public ArrayList<Booking> adminBookList(Connection conn, ArrayList<Booking> bookings, Paging paging) {
 		ArrayList<Booking> bookingss = new ArrayList<Booking>();
+		String searchContent = " like '%" + paging.getSearchContent() + "%'";
+		String search = null;
+		switch (paging.getSearchTitle()) {
+		case 0:
+			search = "";
+			break;
+		case 1:
+			search = "where CAST(no as text) " + searchContent;
+			break;
+		case 2:
+			search = "where CAST( room_no as text) " + searchContent;
+			break;
+		case 3:
+			search = "where name " + searchContent;
+			break;
+		}
 		try {
 			pstmt = conn.prepareStatement(
-					"select no, room_no,name,phone, adult, child, start_date,end_date,options,payment_flag, total_cost,bank_name,bank_branch_code,bank_account_number,created_at, updated_at, cancel_flag from booking order by no");
+					"select no, room_no,name,phone, adult, child, start_date,end_date,options,payment_flag, total_cost,bank_name,bank_branch_code,bank_account_number,created_at, updated_at, cancel_flag from booking "
+							+ search + " order by no offset ? limit 10");
+			pstmt.setInt(1, (paging.getCurrentPage() - 1) * 10);
 			rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				String[] options = rs.getString(9).split("/");
 				String option1 = options[0];
@@ -174,10 +194,10 @@ public class BookDAO {
 		try {
 			pstmt = conn.prepareStatement("update booking set payment_flag = ?  where no = ?");
 			if (payment.equalsIgnoreCase("yes"))
-				pstmt.setString(1, 1+"");
+				pstmt.setString(1, 1 + "");
 			else if (payment.equalsIgnoreCase("no"))
-				pstmt.setString(1, 0+"");
-			
+				pstmt.setString(1, 0 + "");
+
 			pstmt.setInt(2, no);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -192,21 +212,51 @@ public class BookDAO {
 	public int bookCancel(Connection conn, String cancel, int no) {
 		int result = 0;
 		try {
-			System.out.println(cancel);
-			System.out.println(no);
 			pstmt = conn.prepareStatement("update booking set cancel_flag = ?  where no = ?");
 			if (cancel.equalsIgnoreCase("yes"))
-				pstmt.setString(1, 1+"");
+				pstmt.setString(1, 1 + "");
 			else if (cancel.equalsIgnoreCase("no"))
-				pstmt.setString(1, 0+"");
+				pstmt.setString(1, 0 + "");
 			else if (cancel.equalsIgnoreCase("do"))
-				pstmt.setString(1, 2+"");
-			
+				pstmt.setString(1, 2 + "");
+
 			pstmt.setInt(2, no);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error : BookDAO.bookCancel()");
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return result;
+	}
+
+	public int bookTotalCount(Connection conn, int searchTitle, String searchContentParam) {
+		int result = 0;
+		String searchContent = " like '%" + searchContentParam + "%'";
+		String search = null;
+		switch (searchTitle) {
+		case 0:
+			search = "";
+			break;
+		case 1:
+			search = "where CAST(no as text) " + searchContent;
+			break;
+		case 2:
+			search = "where CAST( room_no as text) " + searchContent;
+			break;
+		case 3:
+			search = "where name " + searchContent;
+			break;
+		}
+		try {
+			pstmt = conn.prepareStatement("select count(*) from booking " + search);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				result = rs.getInt(1);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("error : BookDAO.bookTotalCount()");
 		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
