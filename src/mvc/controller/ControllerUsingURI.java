@@ -51,7 +51,7 @@ public class ControllerUsingURI extends HttpServlet {
 
 	}
 
-	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void process(HttpServletRequest req, HttpServletResponse resp) {
 		String command = req.getRequestURI();
 		if (command.indexOf(req.getContextPath()) == 0) {
 			command = command.substring(req.getContextPath().length());
@@ -59,15 +59,25 @@ public class ControllerUsingURI extends HttpServlet {
 		CommandHandler handler = commandHandlerMap.get(command);
 		if (handler == null)
 			handler = new NullHandler();
+
 		String viewPage = null;
 		try {
 			viewPage = handler.process(req, resp);
 		} catch (Exception e) {
-			Util.redirectMsgAndBack(req, "ServletException");
+			// TODO: handle exception
 		}
-		if (viewPage != null) {
-			RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
-			dispatcher.forward(req, resp);
+		RequestDispatcher dispatcher;
+		try {
+			if (viewPage != null) {
+				dispatcher = req.getRequestDispatcher(viewPage);
+				dispatcher.forward(req, resp);
+			} else {
+				dispatcher = req.getRequestDispatcher("/WEB-INF/view/board/noticeList.jsp");
+				dispatcher.forward(req, resp);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+
 		}
 	}
 

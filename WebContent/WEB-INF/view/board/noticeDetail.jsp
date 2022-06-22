@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>noticeList.jsp</title>
+<title>Insert title here</title>
 <style>
 .container_main {
 	margin: auto;
@@ -39,7 +40,7 @@
 
 .container_center {
 	display: inline-block;
-	width: 70%;
+	width: 100%;
 	height: 100%;
 	border: 2px solid;
 }
@@ -52,7 +53,7 @@
 
 .container_center_center {
 	width: 100%;
-	height: 80%;
+	height: 50%;
 	border: 2px solid;
 }
 
@@ -68,33 +69,31 @@ table {
 </style>
 </head>
 <body>
+	<%
+	String readonly = "readonly";
+	%>
+	<c:if test="${update }">
+		<script type="text/javascript">
+			
+		<%readonly = "";%>
+			
+		</script>
+	</c:if>
 	<%@ include file="../../include/header.jsp"%>
 	<div class="container_main">
-		<div class="container_right">
-			<div class="container_right_top">1</div>
-			<div class="container_right_bottom">2</div>
-		</div>
 		<div class="container_center">
-			<div class="container_center_top"></div>
+			<div class="container_center_top">タイトル : <input type="text" name="" value="${notice.title }" <%=readonly %>/></div>
+			<div class="container_center_top">名前 : <input type="text" name="" value="${loginedName }" <%=readonly %>/></div>
+			<div class="container_center_top">パスワード : <input type="text" name="" value="${loginedName }" <%=readonly %>/></div>
 			<div class="container_center_center">
-				<table>
-					<tr>
-						<th>no</th>
-						<th>title</th>
-						<th>contents</th>
-						<th>created_at</th>
-					</tr>
-					<c:forEach var="notice" items="${noticeList }">
-						<tr>
-							<td><a href="noticeDetail.do?no=${notice.no }">${notice.no }</a></td>
-							<td>${notice.title }</td>
-							<td>${notice.contents }</td>
-							<td>${notice.created_at }</td>
-						</tr>
-					</c:forEach>
-				</table>
+				<textarea style="height: 100%; width: 100%; padding: 2%;"
+					name="contents" <%=readonly %>>${notice.contents }</textarea>
 			</div>
-			<div class="container_center_bottom"></div>
+			<div class="container_center_bottom">
+				<input value="修正" type="button"
+					onclick="location.href='noticeDetail.do?update=true'">
+			</div>
+			<div class="container_center_bottom">댓글</div>
 		</div>
 	</div>
 </body>

@@ -1,5 +1,6 @@
 package admin.command;
 
+
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,19 +17,22 @@ public class AdminBookListHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+		
 		if (rq.getParameter("payment") != null)
-			if (bookService.paymentUpdate(rq.getParameter("p	ayment"), Integer.parseInt(rq.getParameter("no"))) != 1)
-				return Util.redirectMsgAndBack(rq, "èÓïÒÇ™àÍívÇµÇƒÇ¢Ç‹ÇπÇÒ");
+			if (bookService.paymentUpdate(rq.getParameter("payment"), Integer.parseInt(rq.getParameter("no"))) != 1)
+				return Util.redirectMsgAndBack(rq, "payment");
 
 		if (rq.getParameter("cancel") != null)
 			if (bookService.bookCancel(rq.getParameter("cancel"), Integer.parseInt(rq.getParameter("no"))) != 1)
-				return Util.redirectMsgAndBack(rq, "èÓïÒÇ™àÍívÇµÇƒÇ¢Ç‹ÇπÇÒ");
+				return Util.redirectMsgAndBack(rq, "cancel");
 
+		
 		ArrayList<Booking> bookings = new ArrayList<Booking>();
 		int searchTitle = 0;
 		if (rq.getParameter("searchTitle") != null)
 			searchTitle = Integer.parseInt(rq.getParameter("searchTitle"));
 
+		
 		String searchContent = null;
 		if (rq.getParameter("searchContent") != null)
 			searchContent = rq.getParameter("searchContent");
@@ -37,8 +41,12 @@ public class AdminBookListHandler implements CommandHandler {
 		if (rq.getParameter("currentPage") != null)
 			currentPage = Integer.parseInt(rq.getParameter("currentPage"));
 
+		
 		int total = bookService.bookTotalCount(searchTitle, searchContent);
+		System.out.println("test1");
+		System.out.println(total);
 		Paging pagingModel = new Paging(total, currentPage, searchTitle, searchContent);
+		System.out.println("test2");
 		bookings = bookService.adminBookList(bookings, pagingModel);
 		
 		rq.setAttribute("paging", pagingModel);
@@ -48,7 +56,7 @@ public class AdminBookListHandler implements CommandHandler {
 		} else if (rq.getMethod().equalsIgnoreCase("post")) {
 			return processSubmit(rq, rp);
 		} else
-			return Util.redirectMsgAndBack(rq, "URIé∏îs");
+			return Util.redirectMsgAndBack(rq, "URI");
 
 	}
 

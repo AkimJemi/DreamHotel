@@ -14,7 +14,7 @@
 	background-color: #ea9a56;
 }
 </style>
-<%@ include file="/WEB-INF/include/dhShortcut.tag"%>
+<%-- <%@ include file="/WEB-INF/include/dhShortcut.tag"%> --%>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="collapse navbar-collapse" id="myNavbar">

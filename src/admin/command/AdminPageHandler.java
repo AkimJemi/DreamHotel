@@ -11,16 +11,16 @@ public class AdminPageHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
-		
-		
-		
-		if (rq.getSession().getAttribute("loginedAdmin") != null)
+		if (rq.getSession().getAttribute("loginedAdmin") != null) {
 			return "adminBookList.do";
-		if (rq.getParameter("adminCode").equals("admin")) {
+		}
+		
+		if (rq.getParameter("adminCode") != null && rq.getParameter("adminCode").equals("admin")) {
 			rq.getSession().setAttribute("loginedAdmin", rq.getParameter("adminCode"));
 			return "adminBookList.do";
-		} else 
+		} else {
 			return "WEB-INF/view/admin/adminLogin.jsp";
-	}	
+		}
+	}
 
 }

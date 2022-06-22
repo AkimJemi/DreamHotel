@@ -10,7 +10,7 @@ public class Util {
 
 	public static String redirectMsgAndReplace(HttpServletRequest rq, String Msg, String replaceURI) {
 		rq.setAttribute("Msg", Msg);
-		rq.setAttribute("replaceURI", rq.getContextPath()+ replaceURI);
+		rq.setAttribute("replaceURI", rq.getContextPath() + replaceURI);
 		System.out.println(Msg);
 		System.out.println(replaceURI);
 		return "/common/redirect.jsp";
@@ -19,6 +19,7 @@ public class Util {
 	public static String redirectMsgAndBack(HttpServletRequest rq, String Msgs) {
 		rq.setAttribute("historyBack", Boolean.TRUE);
 		rq.setAttribute("Msg", Msgs);
+		System.out.println(Msgs);
 		return "/common/redirect.jsp";
 	}
 

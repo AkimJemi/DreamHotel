@@ -10,6 +10,6 @@ public class NullHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
 		rp.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return Util.redirectMsgAndBack(rq, "NullHandler");
+			return null;
 	}
 }
