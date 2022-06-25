@@ -75,26 +75,45 @@ table {
 	<c:if test="${update }">
 		<script type="text/javascript">
 			
-		<%readonly = "";%>
+		<%readonly = "required";%>
 			
 		</script>
 	</c:if>
 	<%@ include file="../../include/header.jsp"%>
-	<div class="container_main">
-		<div class="container_center">
-			<div class="container_center_top">タイトル : <input type="text" name="" value="${notice.title }" <%=readonly %>/></div>
-			<div class="container_center_top">名前 : <input type="text" name="" value="${loginedName }" <%=readonly %>/></div>
-			<div class="container_center_top">パスワード : <input type="text" name="" value="${loginedName }" <%=readonly %>/></div>
-			<div class="container_center_center">
-				<textarea style="height: 100%; width: 100%; padding: 2%;"
-					name="contents" <%=readonly %>>${notice.contents }</textarea>
+	<form action="noticeDetail.do" method="post">
+		<div class="container_main">
+			<div class="container_center">
+				<div class="container_center_top">
+					タイトル : <input type="text" name="title" value="${notice.title }"
+						<%=readonly %> />
+				</div>
+				<div class="container_center_top">
+					名前 : <input type="text" name="" value="${loginedName }"
+						<%=readonly %> />
+				</div>
+				<div class="container_center_top">
+					パスワード : <input type="text" name="" value="${loginedName }"
+						<%=readonly %> />
+				</div>
+				<div class="container_center_center">
+					<textarea style="height: 100%; width: 100%; padding: 2%;"
+						name="contents" <%=readonly%>>${notice.contents }</textarea>
+				</div>
+				<div class="container_center_bottom">
+					<c:choose>
+						<c:when test="${update }">
+							<input value="登録" type="submit" />
+						</c:when>
+						<c:otherwise>
+							<input value="修正" type="button"
+								onclick="location.href='noticeDetail.do?update=true'" />
+						</c:otherwise>
+					</c:choose>
+
+				</div>
+				<div class="container_center_bottom">댓글</div>
 			</div>
-			<div class="container_center_bottom">
-				<input value="修正" type="button"
-					onclick="location.href='noticeDetail.do?update=true'">
-			</div>
-			<div class="container_center_bottom">댓글</div>
 		</div>
-	</div>
+	</form>
 </body>
 </html>

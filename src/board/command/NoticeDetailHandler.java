@@ -17,7 +17,7 @@ public class NoticeDetailHandler implements CommandHandler {
 		if (rq.getParameter("no") != null) {
 			no = Integer.parseInt(rq.getParameter("no"));
 		}
-		
+
 		if (rq.getMethod().equals("POST")) {
 			return processSubmit(rq, rp);
 		} else if (rq.getMethod().equals("GET"))
@@ -28,16 +28,19 @@ public class NoticeDetailHandler implements CommandHandler {
 	private String processForm(HttpServletRequest rq, HttpServletResponse rp) {
 		Notice notice = new Notice(Container.noticeService.noticeDetail(no));
 		rq.setAttribute("notice", notice);
-		
-		if (rq.getParameter("update") != null) 
+
+		if (rq.getParameter("update") != null)
 			rq.setAttribute("update", Boolean.TRUE);
-		
+
 		return "WEB-INF/view/board/noticeDetail.jsp";
 	}
 
 	private String processSubmit(HttpServletRequest rq, HttpServletResponse rp) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice notice = new Notice(Container.noticeService
+				.noticeUpdate(new Notice(no, rq.getParameter("title"), rq.getParameter("contents"))));
+
+		rq.setAttribute("notice", notice);
+		return "WEB-INF/view/board/noticeDetail.jsp";
 	}
 
 }

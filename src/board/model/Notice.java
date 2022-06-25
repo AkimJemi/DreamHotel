@@ -6,6 +6,12 @@ import board.service.NoticeService;
 
 public class Notice {
 
+	public Notice(int no, String title, String contents) {
+		this.no = no;
+		this.title = title;
+		this.contents = contents;
+	}
+
 	private int no;
 	private String title;
 	private String contents;
@@ -21,6 +27,8 @@ public class Notice {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
+	
+	
 
 	public Notice(Notice notice) {
 		this.no = notice.getNo();

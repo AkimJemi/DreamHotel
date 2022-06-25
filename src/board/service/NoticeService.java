@@ -41,4 +41,17 @@ public class NoticeService {
 
 	}
 
+	public Notice noticeUpdate(Notice notice) {
+		try {
+			conn = ConnectionProvider.getConnection();
+			notice = noticeDao.noticeUpdate(conn, notice);
+		} catch (Exception e) {
+			System.out.println("error : NoticeService.noticeUpdate()");
+			System.out.println(e.getMessage());
+		} finally {
+			JdbcUtil.close(conn);
+		}
+		return notice;
+	}
+
 }

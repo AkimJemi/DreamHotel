@@ -16,7 +16,6 @@ public class NoticeListHandler implements CommandHandler {
 	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
 		NoticeService noticeService = new NoticeService();
 		
-		System.out.println("test");
 		ArrayList<Notice> noticeList = new ArrayList<Notice>(); 	
 		noticeList = noticeService.noticeList(noticeList);
 		
