@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="../../include/header.jsp"%>
 <meta charset="UTF-8">
 <title>adminBookList.jsp</title>
 <style type="text/css">
@@ -61,16 +62,14 @@ button {
 </script>
 </head>
 <body>
-	<%@ include file="../../include/header.jsp"%>
-	
-	<c:set var="page" value="searchContent=${paging.searchContent }&searchTitle=${paging.searchTitle }"/>
-	
+	<c:set var="page"
+		value="searchContent=${paging.searchContent }&searchTitle=${paging.searchTitle }" />
 	<h1>${loginedName }様お歓迎致します。</h1>
 	<form action="adminBookList.do">
 		<div class="paging_css">
 			<div class="paging_css_inner">
-				<input type="hidden" name="currentPage" value="${paging.currentPage }"> <select
-					name="searchTitle">
+				<input type="hidden" name="currentPage"
+					value="${paging.currentPage }"> <select name="searchTitle">
 					<option value="0">-</option>
 					<option value="1">予約番号</option>
 					<option value="2">部屋番号</option>
@@ -79,8 +78,9 @@ button {
 				<script type="text/javascript">
 				$('select[name="searchTitle"]').val('${paging.searchTitle}');
 				</script>
-				<input type="text" name="searchContent" value="${paging.searchContent }"
-					placeholder="入力してください" /> <input type="submit" value="検索">
+				<input type="text" name="searchContent"
+					value="${paging.searchContent }" placeholder="入力してください" /> <input
+					type="submit" value="検索">
 			</div>
 		</div>
 	</form>
@@ -177,7 +177,8 @@ button {
 					<a href="adminBookList.do?currentPage=${paging.begin-1 }&${page }">前へ</a>
 				</c:if>
 			</div>
-			<c:forEach var="pagingCount" begin="${paging.begin }" end="${paging.end }">
+			<c:forEach var="pagingCount" begin="${paging.begin }"
+				end="${paging.end }">
 				<div>
 					<a href="adminBookList.do?currentPage=${pagingCount}&${page }">${pagingCount}</a>
 				</div>

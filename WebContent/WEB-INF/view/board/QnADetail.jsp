@@ -5,7 +5,7 @@
 <head>
 <%@ include file="../../include/header.jsp"%>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>QnADetail.jsp</title>
 </head>
 <body>
 	<%
@@ -22,12 +22,12 @@
 		<div class="container_main">
 			<div class="container_center">
 				<div class="container_center_top">
-					タイトル : <input type="text" name="title" value="${notice.title }"
+					タイトル : <input type="text" name="title" value="${consultation.title }"
 						<%=readonly %> />
 				</div>
 				<div class="container_center_center">
 					<textarea style="height: 100%; width: 100%; padding: 2%;"
-						name="contents" <%=readonly%>>${notice.contents }</textarea>
+						name="contents" <%=readonly%>>${consultation.contents }</textarea>
 				</div>
 				<div class="container_center_bottom">
 					<c:choose>

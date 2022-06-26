@@ -13,6 +13,67 @@
 .navbar-default .navbar-nav>.active>a {
 	background-color: #ea9a56;
 }
+
+/* customerlize */
+.container_main {
+	margin: auto;
+	display: flex;
+	width: 80%;
+	height: 800px;
+	border: 5px solid;
+}
+
+.container_right {
+	display: inline-block;
+	width: 30%;
+	height: 100%;
+	border: 2px solid;
+}
+
+.container_right_top {
+	width: 100%;
+	height: 30%;
+	border: 2px solid;
+	text-align: center;
+	padding: 10%;
+}
+
+.container_right_bottom {
+	padding: 10%;
+	text-align: center;
+	width: 100%;
+	height: 70%;
+	border: 2px solid;
+}
+
+.container_center {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	border: 2px solid;
+}
+
+.container_center_top {
+	width: 100%;
+	height: 10%;
+	border: 2px solid;
+}
+
+.container_center_center {
+	width: 100%;
+	height: 50%;
+	border: 2px solid;
+}
+
+.container_center_bottom {
+	width: 100%;
+	height: 10%;
+	border: 2px solid;
+}
+
+table {
+	width: 100%;
+}
 </style>
 <%-- <%@ include file="/WEB-INF/include/dhShortcut.tag"%> --%>
 <nav class="navbar navbar-default">

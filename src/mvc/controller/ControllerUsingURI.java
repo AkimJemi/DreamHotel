@@ -57,14 +57,14 @@ public class ControllerUsingURI extends HttpServlet {
 			command = command.substring(req.getContextPath().length());
 		}
 		CommandHandler handler = commandHandlerMap.get(command);
-		if (handler == null)
-			handler = new NullHandler();
-
+		if (handler == null) {
+			handler = new NullHandler(command);
+		}
 		String viewPage = null;
 		try {
 			viewPage = handler.process(req, resp);
 		} catch (Exception e) {
-			// TODO: handle exception
+			viewPage = Util.redirectMsgAndBack(req, e.getMessage());
 		}
 		RequestDispatcher dispatcher;
 		try {
@@ -72,12 +72,11 @@ public class ControllerUsingURI extends HttpServlet {
 				dispatcher = req.getRequestDispatcher(viewPage);
 				dispatcher.forward(req, resp);
 			} else {
-				dispatcher = req.getRequestDispatcher("/WEB-INF/view/board/noticeList.jsp");
+				dispatcher = req.getRequestDispatcher(Util.redirectMsgAndBack(req, "viewPage Null"));
 				dispatcher.forward(req, resp);
 			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-
+			System.out.println("viewPage error : " + e.getMessage());
 		}
 	}
 

@@ -1,5 +1,4 @@
-/admin/
-/util/
-/board/
 /mvc/
+/board/
 /jdbc/
+/util/

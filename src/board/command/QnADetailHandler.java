@@ -3,14 +3,13 @@ package board.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.Notice;
-import board.service.NoticeService;
+import board.model.Consultation;
 import jdbc.Util;
 import mvc.command.CommandHandler;
 import util.Container;
 
-public class NoticeDetailHandler implements CommandHandler {
-	public static int no;
+public class QnADetailHandler implements CommandHandler {
+	private static int no;
 
 	@Override
 	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
@@ -18,33 +17,32 @@ public class NoticeDetailHandler implements CommandHandler {
 			no = Integer.parseInt(rq.getParameter("no"));
 		}
 
-		if (rq.getMethod().equals("POST")) {
+		if (rq.getMethod().equalsIgnoreCase("post"))
 			return processSubmit(rq, rp);
-		} else if (rq.getMethod().equals("GET"))
+		else if (rq.getMethod().equalsIgnoreCase("get"))
 			return processForm(rq, rp);
-		return Util.redirectMsgAndBack(rq, "NoticeDetailHandler requestMethod");
+		return Util.redirectMsgAndBack(rq, "QnADetailHandler process");
 	}
 
 	private String processForm(HttpServletRequest rq, HttpServletResponse rp) {
-		Notice notice = new Notice(Container.noticeService.noticeDetail(no));
-		rq.setAttribute("notice", notice);
 
 		if (rq.getParameter("update") != null) {
 			if (rq.getSession().getAttribute("loginedAdmin") == null)
 				return Util.redirectMsgAndBack(rq, "権利がない");
-			
+
 			rq.setAttribute("update", Boolean.TRUE);
 		}
 
-		return "WEB-INF/view/board/noticeDetail.jsp";
+		Consultation consultation = Container.qnAService.QnADetail(Integer.parseInt(rq.getParameter("no")));
+		rq.setAttribute("consultation", consultation);
+		return "/WEB-INF/view/board/QnADetail.jsp";
 	}
 
 	private String processSubmit(HttpServletRequest rq, HttpServletResponse rp) {
-		Notice notice = new Notice(Container.noticeService
-				.noticeUpdate(new Notice(no, rq.getParameter("title"), rq.getParameter("contents"))));
-
-		rq.setAttribute("notice", notice);
-		return "WEB-INF/view/board/noticeDetail.jsp";
+		Consultation consultation = new Consultation(Container.qnAService
+				.QnAUpdate(new Consultation(no, rq.getParameter("title"), rq.getParameter("contents"), rq.getParameter("name"),rq.getParameter("passwd"))));
+		rq.setAttribute("consultation", consultation);
+		return "/WEB-INF/view/board/QnADetail.jsp";
 	}
 
 }

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="../../include/header.jsp"%>
 <meta charset="UTF-8">
 <title>adminRoomList.jsp</title>
 <style type="text/css">
@@ -21,7 +21,7 @@ td {
 </style>
 </head>
 <body>
-	<%@ include file="../../include/header.jsp"%>
+
 	<h1>${loginedName }様お歓迎致します。</h1>
 	<table>
 		<thead>

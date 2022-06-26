@@ -19,7 +19,6 @@ public class Util {
 	public static String redirectMsgAndBack(HttpServletRequest rq, String Msgs) {
 		rq.setAttribute("historyBack", Boolean.TRUE);
 		rq.setAttribute("Msg", Msgs);
-		System.out.println(Msgs);
 		return "/common/redirect.jsp";
 	}
 
