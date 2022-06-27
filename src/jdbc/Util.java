@@ -11,8 +11,6 @@ public class Util {
 	public static String redirectMsgAndReplace(HttpServletRequest rq, String Msg, String replaceURI) {
 		rq.setAttribute("Msg", Msg);
 		rq.setAttribute("replaceURI", rq.getContextPath() + replaceURI);
-		System.out.println(Msg);
-		System.out.println(replaceURI);
 		return "/common/redirect.jsp";
 	}
 

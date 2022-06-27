@@ -43,10 +43,7 @@ public class AdminBookListHandler implements CommandHandler {
 
 		
 		int total = bookService.bookTotalCount(searchTitle, searchContent);
-		System.out.println("test1");
-		System.out.println(total);
 		Paging pagingModel = new Paging(total, currentPage, searchTitle, searchContent);
-		System.out.println("test2");
 		bookings = bookService.adminBookList(bookings, pagingModel);
 		
 		rq.setAttribute("paging", pagingModel);

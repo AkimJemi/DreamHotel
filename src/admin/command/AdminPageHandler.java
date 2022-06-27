@@ -14,12 +14,12 @@ public class AdminPageHandler implements CommandHandler {
 		if (rq.getSession().getAttribute("loginedAdmin") != null) {
 			return "adminBookList.do";
 		}
-		
+
 		if (rq.getParameter("adminCode") != null && rq.getParameter("adminCode").equals("admin")) {
-			rq.getSession().setAttribute("loginedAdmin", rq.getParameter("adminCode"));
+			rq.getSession().setAttribute("loginedAdmin", Boolean.TRUE);
 			return "adminBookList.do";
 		} else {
-			return "WEB-INF/view/admin/adminLogin.jsp";
+			return Util.redirectMsgAndBack(rq, "Admin Login Fail");
 		}
 	}
 

@@ -11,7 +11,7 @@
 	<h1>${loginedName }様お歓迎致します。</h1>
 	<form action="adminPage.do" method="post">
 		<h1>
-			Code : <input type="text" name="adminCode">
+			Code : <input type="text" name="adminCode" class="border-2">
 		</h1>
 		<input type="submit" value="ログイン">
 	</form>

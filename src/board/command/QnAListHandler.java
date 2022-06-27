@@ -15,10 +15,7 @@ public class QnAListHandler implements CommandHandler {
 	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
 //		ArrayList<Consultation> consultation = new QnAService().QnAList();
 		ArrayList<Consultation> consultation = Container.qnAService.QnAList();
-		
 		rq.setAttribute("consultationList", consultation);
-		
 		return "WEB-INF/view/board/QnAList.jsp";
 	}
-
 }

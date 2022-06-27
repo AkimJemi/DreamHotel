@@ -41,7 +41,6 @@ public class ControllerUsingURI extends HttpServlet {
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 				throw new ServletException(e);
 			}
-
 		}
 	}
 
@@ -53,28 +52,35 @@ public class ControllerUsingURI extends HttpServlet {
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) {
 		String command = req.getRequestURI();
-		if (command.indexOf(req.getContextPath()) == 0) {
+		if (command.indexOf(req.getContextPath()) == 0)
 			command = command.substring(req.getContextPath().length());
-		}
+
 		CommandHandler handler = commandHandlerMap.get(command);
-		if (handler == null) {
+
+		if (handler == null)
 			handler = new NullHandler(command);
-		}
+
 		String viewPage = null;
+
+		RequestDispatcher dispatcher;
 		try {
+			if (handler.toString().toLowerCase().substring(0, 5).equals("admin"))
+				if (req.getSession().getAttribute("loginedAdmin") == null
+						&& !handler.toString().contains("AdminPageHandler")) {
+					viewPage = Util.redirectMsgAndBack(req, "loginedAmin Null");
+					dispatcher = req.getRequestDispatcher(viewPage);
+					dispatcher.forward(req, resp);
+				}
 			viewPage = handler.process(req, resp);
 		} catch (Exception e) {
 			viewPage = Util.redirectMsgAndBack(req, e.getMessage());
 		}
-		RequestDispatcher dispatcher;
 		try {
-			if (viewPage != null) {
-				dispatcher = req.getRequestDispatcher(viewPage);
-				dispatcher.forward(req, resp);
-			} else {
-				dispatcher = req.getRequestDispatcher(Util.redirectMsgAndBack(req, "viewPage Null"));
-				dispatcher.forward(req, resp);
-			}
+			if (viewPage == null)
+				viewPage = Util.redirectMsgAndBack(req, "viewPage Null");
+
+			dispatcher = req.getRequestDispatcher(viewPage);
+			dispatcher.forward(req, resp);
 		} catch (Exception e) {
 			System.out.println("viewPage error : " + e.getMessage());
 		}

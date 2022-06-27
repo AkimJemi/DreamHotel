@@ -21,7 +21,7 @@ public class LoginHandler implements CommandHandler {
 		} else if (rq.getMethod().equalsIgnoreCase("post")) {
 			return processSubmit(rq, rp);
 		} else
-			return Util.redirectMsgAndBack(rq, "URI失敗");
+			return Util.redirectMsgAndBack(rq, "URI fail");
 
 	}
 
@@ -33,9 +33,9 @@ public class LoginHandler implements CommandHandler {
 			session.setAttribute("loginedUser", Boolean.TRUE);
 			session.setAttribute("loginedName", name);
 			session.setAttribute("loginedPhone", phone);
-			return Util.redirectMsgAndReplace(rq, "ログイン成功", "/myPage.do");
+			return Util.redirectMsgAndReplace(rq, "login succeed", "/myPage.do");
 		}
-		return Util.redirectMsgAndBack(rq, "ログイン失敗");
+		return Util.redirectMsgAndBack(rq, "login fail");
 	}
 
 	private String porocessForm(HttpServletRequest rq, HttpServletResponse rp) {
