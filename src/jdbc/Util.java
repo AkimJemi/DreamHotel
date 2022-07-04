@@ -47,4 +47,9 @@ public class Util {
 		Util.jdbcUrl = jdbcUrl;
 	}
 
+	public static void checkNo(HttpServletRequest rq, int no) {
+		if (rq.getParameter("no") != null)
+			no = Integer.parseInt(rq.getParameter("no"));
+	}
+
 }

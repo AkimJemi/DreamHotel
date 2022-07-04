@@ -5,5 +5,5 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface CommandHandler {
 	public String process(HttpServletRequest rq,
-			HttpServletResponse rp) throws Exception;
+			HttpServletResponse rp);
 }

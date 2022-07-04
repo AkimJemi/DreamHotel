@@ -16,7 +16,7 @@ public class GuestInfoInsertHandler implements CommandHandler {
 	private static int no, room_no, option1, option2, option3;
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+	public String process(HttpServletRequest rq, HttpServletResponse rp)  {
 		no = Integer.parseInt(rq.getParameter("no"));
 		room_no = Integer.parseInt(rq.getParameter("room_num"));
 		room_title = rq.getParameter("room_title");

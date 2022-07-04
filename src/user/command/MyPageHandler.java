@@ -14,19 +14,19 @@ public class MyPageHandler implements CommandHandler {
 	private BookService bookService = new BookService();
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+	public String process(HttpServletRequest rq, HttpServletResponse rp)  {
 		if(rq.getMethod().equalsIgnoreCase("get")){
 			return porocessForm(rq,rp);
 		}else if(rq.getMethod().equalsIgnoreCase("post")){
 			return processSubmit(rq,rp);
 		}else
-			return Util.redirectMsgAndBack(rq, "URI¸”s");
+			return Util.redirectMsgAndBack(rq, "URIï¿½ï¿½ï¿½s");
 	}
 
 	private String porocessForm(HttpServletRequest rq, HttpServletResponse rp) {
 		if (rq.getParameter("cancel") != null) 
 			if (bookService.bookCancel(rq.getParameter("cancel"), Integer.parseInt(rq.getParameter("no"))) != 1)
-				return Util.redirectMsgAndBack(rq, "î•ñ‚ªˆê’v‚µ‚Ä‚¢‚Ü‚¹‚ñ");
+				return Util.redirectMsgAndBack(rq, "ï¿½ï¿½ñ‚ªˆï¿½vï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
 		
 		String name = (String) rq.getSession().getAttribute("loginedName");
 		String phone = (String)rq.getSession().getAttribute("loginedPhone");

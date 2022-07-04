@@ -12,7 +12,7 @@ public class LoginHandler implements CommandHandler {
 	LoginService loginService = new LoginService();
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+	public String process(HttpServletRequest rq, HttpServletResponse rp)  {
 		if (rq.getParameter("name") != null && rq.getParameter("phone") != null)
 			return processSubmit(rq, rp);
 

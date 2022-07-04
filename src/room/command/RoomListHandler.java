@@ -12,7 +12,7 @@ import room.service.RoomService;
 public class RoomListHandler implements CommandHandler {
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+	public String process(HttpServletRequest rq, HttpServletResponse rp)  {
 		if (rq.getMethod().equals("POST"))
 			return processPost(rq, rp);
 		else if (rq.getMethod().equals("GET"))

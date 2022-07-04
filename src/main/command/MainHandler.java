@@ -8,7 +8,7 @@ import mvc.command.CommandHandler;
 public class MainHandler implements CommandHandler{
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+	public String process(HttpServletRequest rq, HttpServletResponse rp)  {
 		return "/WEB-INF/view/main.jsp";
 	}
 }

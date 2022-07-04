@@ -9,7 +9,7 @@ import mvc.command.CommandHandler;
 public class LogoutHandler implements CommandHandler {
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+	public String process(HttpServletRequest rq, HttpServletResponse rp)  {
 
 		if (rq.getParameter("a") != null) {
 			String a = rq.getParameter("a");

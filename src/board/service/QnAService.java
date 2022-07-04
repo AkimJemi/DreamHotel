@@ -3,6 +3,8 @@ package board.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import board.model.Consultation;
 import jdbc.connection.ConnectionProvider;
 import util.Container;
@@ -10,17 +12,16 @@ import util.Container;
 public class QnAService {
 	private Connection conn;
 
-	public ArrayList<Consultation> QnAList() {
-		ArrayList<Consultation> consultationList = new ArrayList<Consultation>();
+	public String QnAList(HttpServletRequest rq) {
 		try {
 			conn = ConnectionProvider.getConnection();
-			consultationList = Container.qnADao.QnAList(conn, consultationList);
-
+			ArrayList<Consultation> consultationList = Container.qnADao.QnAList(conn, new ArrayList<Consultation>());
+			rq.setAttribute("consultationList", consultationList);
 		} catch (Exception e) {
 			System.out.println("error : QnAService.QnAList()");
 			System.out.println(e.getMessage());
 		}
-		return consultationList;
+		return "WEB-INF/view/board/QnAList.jsp";
 	}
 
 	public Consultation QnADetail(int no) {

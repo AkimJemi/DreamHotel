@@ -3,6 +3,7 @@ package board.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import board.command.NoticeListHandler;
 import board.dao.NoticeDAO;
 import board.model.Notice;
 import jdbc.JdbcUtil;

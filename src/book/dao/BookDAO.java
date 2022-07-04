@@ -14,12 +14,12 @@ public class BookDAO {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
-	public ArrayList<Booking> bookList(Connection conn, ArrayList<Booking> bookLists) {
+	public ArrayList<Booking> bookList(Connection conn, Booking booking) {
 		ArrayList<Booking> bookList = new ArrayList<Booking>();
 		try {
 			pstmt = conn.prepareStatement(
 					"select no, room_no,name,start_date,end_date from booking where cancel_flag = '0' and room_no =? order by no");
-			pstmt.setInt(1, bookLists.get(0).getNo());
+			pstmt.setInt(1, booking.getNo());
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				bookList.add(

@@ -10,7 +10,7 @@ import room.service.RoomService;
 public class RoomDetailHandler implements CommandHandler{
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+	public String process(HttpServletRequest rq, HttpServletResponse rp)  {
 		int no = 0;
 		if(rq.getParameter("no") != null )
 			no = Integer.parseInt(rq.getParameter("no")) ;

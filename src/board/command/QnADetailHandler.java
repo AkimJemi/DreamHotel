@@ -10,12 +10,11 @@ import util.Container;
 
 public class QnADetailHandler implements CommandHandler {
 	private static int no;
+	private static String QnADetailHandler = "/WEB-INF/view/board/QnADetail.jsp";
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
-		if (rq.getParameter("no") != null) {
-			no = Integer.parseInt(rq.getParameter("no"));
-		}
+	public String process(HttpServletRequest rq, HttpServletResponse rp) {
+		Util.checkNo(rq, no);
 
 		if (rq.getMethod().equalsIgnoreCase("post"))
 			return processSubmit(rq, rp);
@@ -25,24 +24,20 @@ public class QnADetailHandler implements CommandHandler {
 	}
 
 	private String processForm(HttpServletRequest rq, HttpServletResponse rp) {
-
 		if (rq.getParameter("update") != null) {
 			if (rq.getSession().getAttribute("loginedAdmin") == null)
 				return Util.redirectMsgAndBack(rq, "権利がない");
-
 			rq.setAttribute("update", Boolean.TRUE);
 		}
-
-		Consultation consultation = Container.qnAService.QnADetail(Integer.parseInt(rq.getParameter("no")));
-		rq.setAttribute("consultation", consultation);
-		return "/WEB-INF/view/board/QnADetail.jsp";
+		rq.setAttribute("consultation", Container.qnAService.QnADetail(Integer.parseInt(rq.getParameter("no"))));
+		return QnADetailHandler;
 	}
 
 	private String processSubmit(HttpServletRequest rq, HttpServletResponse rp) {
-		Consultation consultation = new Consultation(Container.qnAService
-				.QnAUpdate(new Consultation(no, rq.getParameter("title"), rq.getParameter("contents"), rq.getParameter("name"),rq.getParameter("passwd"))));
-		rq.setAttribute("consultation", consultation);
-		return "/WEB-INF/view/board/QnADetail.jsp";
+		rq.setAttribute("consultation",
+				new Consultation(Container.qnAService.QnAUpdate(new Consultation(no, rq.getParameter("title"),
+						rq.getParameter("contents"), rq.getParameter("name"), rq.getParameter("passwd")))));
+		return QnADetailHandler;
 	}
 
 }

@@ -1,29 +1,22 @@
 package book.command;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import book.model.Booking;
-import book.service.BookService;
 import jdbc.Util;
 import mvc.command.CommandHandler;
+import util.Container;
 
 public class CalenderForUserHandler implements CommandHandler {
-	private BookService bookService;
 	private ArrayList<Booking> bookList;
 	private static String start_date, end_date;
 	private static int room_no, room_num;
 
 	@Override
-	public String process(HttpServletRequest rq, HttpServletResponse rp) throws Exception {
+	public String process(HttpServletRequest rq, HttpServletResponse rp) {
 		if (rq.getParameter("check") != null) {
 			ArrayList<Integer> listDates = new ArrayList<Integer>();
 			ArrayList<Integer> calDates = new ArrayList<Integer>();
@@ -45,12 +38,12 @@ public class CalenderForUserHandler implements CommandHandler {
 					start_dates++;
 				}
 			}
-			rq.setAttribute("msg", "Ž¸”s");
+			rq.setAttribute("msg", "fall");
 			for (int z = 0; z < calDates.size(); z++)
 				if (listDates.contains(calDates.get(z)))
 					return "WEB-INF/view/room/calenderSuccess.jsp";
 
-			rq.setAttribute("msg", "¬Œ÷");
+			rq.setAttribute("msg", "succeed");
 			return "WEB-INF/view/room/calenderSuccess.jsp";
 		}
 
@@ -62,8 +55,7 @@ public class CalenderForUserHandler implements CommandHandler {
 			return Util.redirectMsgAndBack(rq, "getMethod Error");
 	}
 
-	private String post(HttpServletRequest rq, HttpServletResponse rp)
-			throws JsonMappingException, JsonProcessingException {
+	private String post(HttpServletRequest rq, HttpServletResponse rp) {
 //		ObjectMapper mapper = new ObjectMapper();
 //		String json = rq.getParameter("alldata").substring(1, rq.getParameter("alldata").length() - 1);
 //		Map<String, Object> map = mapper.readValue(json, Map.class);
@@ -79,13 +71,10 @@ public class CalenderForUserHandler implements CommandHandler {
 	}
 
 	private String get(HttpServletRequest rq, HttpServletResponse rp) {
-		bookService = new BookService();
-		bookList = new ArrayList<Booking>();
 		room_no = Integer.parseInt(rq.getParameter("no"));
 		room_num = Integer.parseInt(rq.getParameter("room_num"));
 
-		bookList.add(new Booking(room_no, room_num));
-		bookList = bookService.bookList(bookList); // 2
+		bookList = Container.bookService.bookList(new Booking(room_no, room_num)); // 2
 		rq.setAttribute("room_title", rq.getParameter("room_title"));
 		rq.setAttribute("no", room_no);
 		rq.setAttribute("room_num", room_num);
