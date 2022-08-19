@@ -27,12 +27,11 @@ public class Booking {
 	private Date updated_at;
 	private String delete_flag;
 
-	public Booking() {
+	Booking() {
+	
 	}
 //	no, room_no,name,phone, adult, child, start_date,end_date,option,
 //	bank_name,bank_branch_code,bank_account_number,created_at, updated_at, cancel_flag
-	
-	
 
 	public Booking(int no, int room_no, String name, String start_date, String end_date) {
 		this.no = no;
@@ -41,7 +40,6 @@ public class Booking {
 		this.start_date = start_date;
 		this.end_date = end_date;
 	}
-
 
 	public Booking(int no, int room_no, String name, String phone, String adult, String child, String start_date,
 			String end_date, String option1, String option2, String option3, String payment_flag, int total_cost,
@@ -67,8 +65,6 @@ public class Booking {
 		this.updated_at = updated_at;
 		this.cancel_flag = cancel_flag;
 	}
-
-
 
 	public Booking(int no, int room_no) {
 		this.no = no;
@@ -153,7 +149,6 @@ public class Booking {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
-
 
 	public String getOption() {
 		return option;
@@ -307,37 +302,25 @@ public class Booking {
 		this.updated_at = updated_at;
 	}
 
-
-
 	public String getOption1() {
 		return option1;
 	}
-
-
 
 	public void setOption1(String option1) {
 		this.option1 = option1;
 	}
 
-
-
 	public String getOption2() {
 		return option2;
 	}
-
-
 
 	public void setOption2(String option2) {
 		this.option2 = option2;
 	}
 
-
-
 	public String getOption3() {
 		return option3;
 	}
-
-
 
 	public void setOption3(String option3) {
 		this.option3 = option3;

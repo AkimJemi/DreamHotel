@@ -14,7 +14,9 @@
 			<div class="container_right_bottom">2</div>
 		</div>
 		<div class="container_center">
-			<div class="container_center_top"></div>
+			<div class="container_center_top">
+			<input value="登録" onclick="location.href='QnADetail.do?type=create'" class="btn-header-admin-open border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline" type="button"/>
+			</div>
 			<div class="container_center_center">
 				<table>
 					<tr>

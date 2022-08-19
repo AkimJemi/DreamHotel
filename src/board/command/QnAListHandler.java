@@ -7,6 +7,7 @@ import mvc.command.CommandHandler;
 import util.Container;
 
 public class QnAListHandler implements CommandHandler {
+	public static String QnAListHandler = "WEB-INF/view/board/QnAList.jsp";
 
 	@Override
 	public String process(HttpServletRequest rq, HttpServletResponse rp) {

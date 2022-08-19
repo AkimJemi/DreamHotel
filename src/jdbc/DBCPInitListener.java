@@ -16,14 +16,17 @@ import org.apache.commons.dbcp2.PoolingDriver;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
+
 public class DBCPInitListener implements ServletContextListener {
 
    @Override
    public void contextInitialized(ServletContextEvent sce) {
+	  
       String poolConfig = 
     		  sce.getServletContext().getInitParameter("poolConfig");
       Properties prop = new Properties();
       try {
+    	  System.out.println(poolConfig);
          prop.load(new StringReader(poolConfig));
       } catch (IOException e) {
          throw new RuntimeException("config load fail",e);

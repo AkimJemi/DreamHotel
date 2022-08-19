@@ -17,12 +17,27 @@ public class Consultation {
 	private Date created_at;
 	private Date updated_at;
 
+	
+	
 	public Consultation(Consultation consultation) {
 		this.no = consultation.getNo();
 		this.title = consultation.getTitle();
 		this.contents = consultation.getContents();
 		this.name = consultation.getName();
 		this.passwd = consultation.getPasswd();
+	}
+
+	public Consultation(int no, int grno, int grgrod, String title, String contents, String name, String delete_flag,
+			Date created_at, Date updated_at) {
+		this.no = no;
+		this.grno = grno;
+		this.grgrod = grgrod;
+		this.title = title;
+		this.contents = contents;
+		this.name = name;
+		this.delete_flag = delete_flag;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
 	}
 
 	public Consultation(int no, String title, String contents, String name, String passwd) {

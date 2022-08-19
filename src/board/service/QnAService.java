@@ -14,9 +14,8 @@ public class QnAService {
 
 	public String QnAList(HttpServletRequest rq) {
 		try {
-			conn = ConnectionProvider.getConnection();
-			ArrayList<Consultation> consultationList = Container.qnADao.QnAList(conn, new ArrayList<Consultation>());
-			rq.setAttribute("consultationList", consultationList);
+			rq.setAttribute("consultationList",
+					Container.qnADao.QnAList(ConnectionProvider.getConnection(), new ArrayList<Consultation>()));
 		} catch (Exception e) {
 			System.out.println("error : QnAService.QnAList()");
 			System.out.println(e.getMessage());
@@ -27,9 +26,8 @@ public class QnAService {
 	public Consultation QnADetail(int no) {
 		Consultation consultation = new Consultation();
 		try {
-			conn = ConnectionProvider.getConnection();
 			consultation.setNo(no);
-			consultation = Container.qnADao.QnADetail(conn, consultation);
+			consultation = Container.qnADao.QnADetail(ConnectionProvider.getConnection(), consultation);
 
 		} catch (Exception e) {
 			System.out.println("error : QnAService.QnADetail()");
@@ -40,14 +38,22 @@ public class QnAService {
 
 	public Consultation QnAUpdate(Consultation consultation) {
 		try {
-			conn = ConnectionProvider.getConnection();
-			consultation = Container.qnADao.QnAUpdate(conn, consultation);
-
+			consultation = Container.qnADao.QnAUpdate(ConnectionProvider.getConnection(), consultation);
 		} catch (Exception e) {
 			System.out.println("error : QnAService.QnAUpdate()");
 			System.out.println(e.getMessage());
 		}
 		return consultation;
+	}
+
+	public ArrayList<Consultation> ReplyList(int no) {
+		try {
+			return Container.qnADao.ReplyList(ConnectionProvider.getConnection(), no, new ArrayList<Consultation>());
+		} catch (Exception e) {
+			System.out.println("error : QnAService.ReplyList()");
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
 
 }

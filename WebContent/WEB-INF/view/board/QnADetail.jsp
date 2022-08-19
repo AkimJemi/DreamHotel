@@ -9,13 +9,11 @@
 </head>
 <body>
 	<%
-	String readonly = "readonly";
+	String readonly = "required";
 	%>
-	<c:if test="${update }">
+	<c:if test="${detail }">
 		<script type="text/javascript">
-			
-		<%readonly = "required";%>
-			
+		<%readonly = "readonly";%>
 		</script>
 	</c:if>
 	<div class="container_main">
@@ -32,13 +30,13 @@
 					</div>
 					<div class="container_center_bottom">
 						<c:choose>
-							<c:when test="${update }">
+							<c:when test="${not detail }">
 								<input value="登録" type="submit" />
 							</c:when>
 							<c:otherwise>
 								<c:if test="${loginedAdmin }">
 									<input value="修正" type="button"
-										onclick="location.href='qnADetail.do?update=true'" />
+										onclick="location.href='qnADetail.do?type=update'" />
 								</c:if>
 							</c:otherwise>
 						</c:choose>
@@ -50,7 +48,6 @@
 					<span class="text-4xl">返事</span>
 				</div>
 			</div>
-
 			<div class="container_center_bottom">
 				<form action=""
 					class="h-[100%] grid grid-flow-row-dense grid-cols-2 flex justify-center items-center">
@@ -69,14 +66,22 @@
 						contents : <input type="text" name="contents"
 							class="w-150 border-2 h-10" />
 					</div>
+					<div class="flex justify-between mx-20">
+						<input value="登録"
+							onclick="location.href='QnADetail.do?type=create&create=reply'"
+							class="btn-header-admin-open border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+							type="button" />
+					</div>
 				</form>
 			</div>
-
 			<div class="container_center_bottom">
-				<c:forEach var="reply" items="${reply }">
-					<div>${reply.name }</div>
-					<div>${reply.title }</div>
-					<div>${reply.contents }</div>
+				<c:forEach var="reply" items="${replys }">
+					<div class="flex justify-between mx-20">Name : ${reply.name }
+					</div>
+					<div class="flex justify-between mx-20">title : ${reply.title }
+					</div>
+					<div class="flex justify-between mx-20">contents :
+						${reply.contents }</div>
 				</c:forEach>
 			</div>
 		</div>

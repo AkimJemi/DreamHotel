@@ -14,11 +14,12 @@ import util.paging.Paging;
 
 public class BookService {
 	private Connection conn;
-
+	
 	public ArrayList<Booking> bookList(Booking booking) {
 		try {
 			conn = ConnectionProvider.getConnection();
-			return Container.bookDao.bookList(conn, booking);
+			ArrayList<Booking> bookings = Container.bookDao.bookList(conn, booking);
+			return bookings;
 		} catch (Exception e) {
 			System.out.println("error : BookService.bookList()");
 			System.out.println(e.getMessage());

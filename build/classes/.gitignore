@@ -1,10 +1,5 @@
-/login/
-/admin/
 /jdbc/
-/mvc/
-/board/
-/util/
 /book/
-/main/
+/board/
+/login/
 /room/
-/user/

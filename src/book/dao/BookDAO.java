@@ -13,6 +13,7 @@ import util.paging.Paging;
 public class BookDAO {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	// 클래스 이름하고 똑같이야 한다 // 메소드형태로
 
 	public ArrayList<Booking> bookList(Connection conn, Booking booking) {
 		ArrayList<Booking> bookList = new ArrayList<Booking>();

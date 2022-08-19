@@ -147,7 +147,8 @@ html>body {
 						<a href="logout.do?a=admin"><i
 							class="fa-solid fa-arrow-right-from-bracket"></i>
 							<button
-								class="btn-header-admin-open border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">A-Logout</button> </a>
+								class="btn-header-admin-open border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">A-Logout</button>
+						</a>
 					</c:if>
 				</li>
 				<li>
@@ -162,7 +163,8 @@ html>body {
 						<c:otherwise>
 							<a><span class="glyphicon glyphicon-user"></span>
 								<button
-									class="btn-header-user-open border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">U-Login</button> </a>
+									class="btn-header-user-open border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">U-Login</button>
+							</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
@@ -179,7 +181,8 @@ html>body {
 						<c:otherwise>
 							<a><span class="glyphicon glyphicon-user"></span>
 								<button
-									class="btn-header-admin-open border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">A-Login</button> </a>
+									class="btn-header-admin-open border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">A-Login</button>
+							</a>
 
 						</c:otherwise>
 					</c:choose>
@@ -237,3 +240,5 @@ html>body {
 	});
 </script>
 <h4><%=request.getRequestURI()%></h4>
+<h4><%=request.getSession().getAttribute("loginedAdmin")%></h4>
+<h4><%=request.getParameterMap().containsKey("type")%></h4>

@@ -23,11 +23,9 @@ public class RoomListHandler implements CommandHandler {
 
 	private String processGet(HttpServletRequest rq, HttpServletResponse rp) {
 		RoomService roomService = new RoomService();
-		ArrayList<Room_Info> roomList = new ArrayList<Room_Info>();
-		roomList = roomService.RoomList(roomList);
+		ArrayList<Room_Info> roomList = roomService.RoomList(roomList = new ArrayList<Room_Info>());
 		rq.setAttribute("rooms", roomList);
 		return "/WEB-INF/view/room/roomList.jsp";
-
 	}
 
 	private String processPost(HttpServletRequest rq, HttpServletResponse rp) {

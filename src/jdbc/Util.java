@@ -47,9 +47,15 @@ public class Util {
 		Util.jdbcUrl = jdbcUrl;
 	}
 
-	public static void checkNo(HttpServletRequest rq, int no) {
+	public static int checkNo(HttpServletRequest rq, int no) {
 		if (rq.getParameter("no") != null)
 			no = Integer.parseInt(rq.getParameter("no"));
+		return no;
 	}
 
+	public static String checkLoginedAmind(HttpServletRequest rq) {
+		if (rq.getSession().getAttribute("loginedAdmin") == null)
+			return Util.redirectMsgAndBack(rq, "権利がない");
+		return null;
+	}
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="./css/JM.css">
@@ -16,7 +17,8 @@
 			<div class="main_subContainer_C_left">
 				<div>
 					<div>
-						<a href="roomDetail.do?no=${rooms.no}&room_num=${rooms.room_num}&room_title=${rooms.room_title}">${rooms.no }</a>
+						<a
+							href="roomDetail.do?no=${rooms.no}&room_num=${rooms.room_num}&room_title=${rooms.room_title}">${rooms.no }</a>
 					</div>
 					<div>${rooms.room_num }</div>
 					<div>${rooms.room_title }[]</div>
